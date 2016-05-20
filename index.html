@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/luckdraw.css">
+</head>
+<body>
+    <div class="con">
+        <div class="box" id="js-rect-luck-draw-con">
+            <i class="item js-item selected" data-sort="1" data-prize-id="1">奖品1</i>
+            <i class="item js-item" data-sort="2" data-prize-id="2">奖品2</i>
+            <i class="item js-item" data-sort="3" data-prize-id="3">奖品3</i>
+            <i class="item js-item" data-sort="8" data-prize-id="4">奖品4</i>
+            <i class="btn js-start-btn">Go</i>
+            <i class="item js-item" data-sort="4" data-prize-id="5">奖品5</i>
+            <i class="item js-item" data-sort="7" data-prize-id="6">奖品6</i>
+            <i class="item js-item" data-sort="6" data-prize-id="7">奖品7</i>
+            <i class="item js-item" data-sort="5" data-prize-id="8">奖品8</i>
+        </div>
+        <div class="info" id="js-luck-draw-info">
+            
+        </div>
+    </div>
+    
+    <script src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="js/rect.luckdraw.js"></script>
+    <script>
+        $(function(){
+            var prizeList = {}, 
+                $luckDrawInfo = $('#js-luck-draw-info');
+            for(var i=1; i<9; i++){
+                prizeList[i] = {
+                    name: '奖品' + i
+                };
+            }
+
+            var rld = new RectLuckDraw('#js-rect-luck-draw-con', prizeList, {
+                turnAroundCount: 3, 
+                maxAnimateDelay: 500,
+                turnStartCallback: function(){
+                    log('摇奖开始...');
+                },
+                turnEndCallback: function(prizeId, obj){
+                    log('恭喜您中了 - ' + obj.name);
+                    log('&nbsp;');
+                    this.unlock();
+                },
+                startBtnClick: function($btn){
+                    var prizeId = Math.floor(Math.random() * 8) + 1;
+                    if(this.isLocked()){
+                        log('正在摇奖中...');
+                        return;
+                    }
+
+                    log('最终奖品编号 - ' + prizeId);
+                    this.lock();
+                    this.start(prizeId);
+                }
+            });
+
+            function log(msg){
+                $luckDrawInfo.append('<p>' + msg + '</p>');
+                $luckDrawInfo.scrollTop($luckDrawInfo[0].scrollHeight);
+            }
+        });
+    </script>
+</body>
+</html>
