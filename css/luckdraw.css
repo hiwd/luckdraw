@@ -2,18 +2,23 @@
     margin: 0;
     padding: 0;
 }
-.con{
+.main-content .con{
     width: 450px;
-    margin: 0 auto;
-    margin-top: 200px;
+    margin: 30px auto;
 }
-.box{
+.main-content .con:after{
+    display: block;
+    content: "";
+    overflow: hidden;
+    clear: both;
+}
+.main-content .box{
     float: left;
     width: 300px;
     overflow: hidden;
     background: #ccc;
 }
-.box i{
+.main-content .box i{
     float: left;
     display: block;
     width: 88px;
@@ -29,15 +34,16 @@
     cursor: pointer;
     -webkit-transition: background 0.2s linear;
 }
-.box i.btn{
+.main-content .box i.btn{
+    padding: 0;
     background: #fb0;
 }
 
-.box i.item.selected{
+.main-content .box i.item.selected{
     background: green;
 }
 
-.info{
+.main-content .info{
     float: right;
     width: 140px;
     height: 300px;
@@ -45,7 +51,7 @@
     font-size: 12px;
     overflow: auto;
 }
-.info p{
+.main-content .info p{
     width: 120px;
     margin: 5px auto;
 }
