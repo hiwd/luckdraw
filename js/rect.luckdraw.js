@@ -1,6 +1,7 @@
-/**
+/*!
  * 方形抽奖
  * @author wd<githiwd@163.com>
+ * @GitHub https://github.com/hiwd/luckdraw
  */
 $(function(){
     /**
