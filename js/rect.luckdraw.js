@@ -29,7 +29,9 @@ $(function(){
             calcAniDelay: false, // 当为function且有返回值时 function(当前延迟， 当前圈数， 当前项序号){return 新的延迟时间}
             turnStartCallback: function(){},
             turnEndCallback: function(prizeId, prizeObj){},
-            startBtnClick: function($btn){}
+            startBtnClick: function($btn){},
+            onLock: function(){},
+            onUnlock: function(){}
         }, options);
 
         this._init(selector);
@@ -42,9 +44,11 @@ $(function(){
     RectLuckDraw.prototype.start = function(prizeId){
         var _this = this, 
             options, $li;
-        if(this.seqLis.length == 0){
+        if(this.isLocked() || this.seqLis.length == 0){
             return;
         }
+
+        this.lock();
 
         this._initParams();
 
@@ -155,6 +159,8 @@ $(function(){
     RectLuckDraw.prototype._turnEnd = function(prizeId){
         this._initParams();
 
+        this.unlock();
+        
         if(typeof this.options.turnEndCallback == 'function'){
             this.options.turnEndCallback.apply(this, [prizeId, this.prizeObj[prizeId]]);
         }
@@ -186,6 +192,10 @@ $(function(){
      */
     RectLuckDraw.prototype.lock = function(){
         this.locked = true;
+
+        if(typeof this.options.onLock == 'function'){
+            this.options.onLock.apply(this, []);
+        }
     };
 
     /**
@@ -193,6 +203,10 @@ $(function(){
      */
     RectLuckDraw.prototype.unlock = function(){
         this.locked = false;
+
+        if(typeof this.options.onLock == 'function'){
+            this.options.onUnlock.apply(this, []);
+        }
     };
 
     /**

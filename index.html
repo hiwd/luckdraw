@@ -44,7 +44,6 @@
                 turnEndCallback: function(prizeId, obj){
                     log('恭喜您中了 - ' + obj.name);
                     log('&nbsp;');
-                    this.unlock();
                 },
                 startBtnClick: function($btn){
                     var prizeId = Math.floor(Math.random() * 8) + 1;
@@ -54,8 +53,13 @@
                     }
 
                     log('最终奖品编号 - ' + prizeId);
-                    this.lock();
                     this.start(prizeId);
+                },
+                onLock: function(){
+                    log('锁上了');
+                },
+                onUnlock: function(){
+                    log('解锁了');
                 }
             });
 
